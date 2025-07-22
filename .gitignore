@@ -1,0 +1,5 @@
+# Ignore Terraform plugin binaries
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
