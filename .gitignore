@@ -1,4 +1,4 @@
-# Ignore Terraform plugin binaries
+# Terraform local cache
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
