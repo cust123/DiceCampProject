@@ -210,7 +210,55 @@ You can reproduce this working setup by following these steps:
 
 ---
 
-## ✅ Phase 2: Infrastructure Provisioning with Terraform Infrastructure Provisioning with Terraform
+## ✅ Phase 2: Cloud Readiness & Infrastructure Provisioning
+
+### 🎯 Phase Goals:
+
+- Move the project toward a production-grade, cloud-deployable setup
+- Use MongoDB Atlas as a managed database service
+- Use GitHub for source control and CI/CD integration
+- Provision infrastructure using Terraform (AWS EC2)
+
+---
+
+### 📦 Work Completed in Phase 2 (So Far)
+
+#### 🔹 Repository Setup
+
+- GitHub repo created and initialized: [https://github.com/cust123/DiceCampProject](https://github.com/cust123/DiceCampProject)
+- Full project structure committed, including:
+
+  - Unified `docker-compose.yml`
+  - Client and server Flask apps
+  - Local development volumes and environment config
+
+#### 🔹 MongoDB Atlas Integration
+
+- Created a free-tier MongoDB Atlas cluster
+- Setup included:
+
+  - Atlas DB user (`devops_user`) with proper roles
+  - Whitelisted IP (`0.0.0.0/0` for dev)
+  - Connection URI with `mongodb+srv://` syntax
+
+- Modified `.env` file in `clientSideApp/`:
+
+  ```env
+  MONGO_URI=mongodb+srv://devops_user:<password>@devops-cluster.mongodb.net/filelogs?retryWrites=true&w=majority
+  ```
+
+- Added `dnspython` to `requirements.txt` to ensure SRV URI compatibility
+- Verified successful logs from client app to Atlas ➝ database `filelogs`, collection `logs`
+
+#### 🔹 Project Readiness for Terraform
+
+- Installed AWS CLI & configured with IAM credentials
+- Decided on EC2 + Docker Compose as first infrastructure target
+- Terraform folder will include: `main.tf`, `variables.tf`, `outputs.tf`, and `terraform.tfvars`
+
+---
+
+## ✅ Phase 2.2: Infrastructure Provisioning with Terraform Infrastructure Provisioning with Terraform
 
 - [ ] Define modules and scripts in `/terraform` for:
 

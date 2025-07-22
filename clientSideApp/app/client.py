@@ -5,6 +5,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from flask import request as flask_request
 
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -12,10 +13,19 @@ DATA_DIR = os.getenv("DATA_DIR", "/clientdata")
 FILE_PATH = os.path.join(DATA_DIR, "received.txt")
 FILENAME = "received.txt"
 SERVER_URL = os.getenv("SERVER_HOST", "http://server:5001")
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongo:27017/")
+MONGO_URI = os.getenv("MONGO_URI")
+try:
+        client = MongoClient(MONGO_URI)
+        db= client["Devops-user"]
+        client.admin.command("ping")
+        print("connection to MongoDB successful")
+except Exception as e:
+        print(f"Error connecting to MongoDB: {e}")
+        
+# db = client.filelogs
 
-client = MongoClient(MONGO_URI)
-db = client.filelogs
+
+
 
 @app.route("/", methods=["GET"])
 def index():
