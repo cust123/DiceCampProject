@@ -1,0 +1,35 @@
+services:
+  server:
+    build:
+      context: ./serverSideApp
+    ports:
+      - "5001:5001"
+    volumes:
+      - servervol:/serverdata
+    env_file:
+      - ./serverSideApp/.env
+
+  client:
+    build:
+      context: ./clientSideApp
+    ports:
+      - "5000:5000"
+    volumes:
+      - clientvol:/clientdata
+    env_file:
+      - ./clientSideApp/.env
+    depends_on:
+      - mongo
+      - server
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  servervol:
+  clientvol:
+  mongodata:

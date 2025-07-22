@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Client UI</title></head>
+<body>
+    <h2>Client File Fetch UI</h2>
+    <form action="/fetch" method="post">
+        <button type="submit">Fetch File from Server</button>
+    </form>
+    {% if status %}
+        <p>Status: {{ status }}</p>
+        <p>Checksum: {{ checksum }}</p>
+    {% endif %}
+</body>
+</html>

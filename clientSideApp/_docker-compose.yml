@@ -1,0 +1,27 @@
+# version: "3.8"
+# services:
+#   client:
+#     build: .
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - clientvol:/clientdata
+#     depends_on:
+#       - mongo
+#       - server
+
+#   server:
+#     build: ../serverSideApp # path to server Dockerfile relative to client
+#     ports:
+#       - "5001:5001"
+#     volumes:
+#       - servervol:/serverdata
+
+#   mongo:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+
+# volumes:
+#   clientvol:
+#   servervol:
