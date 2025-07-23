@@ -14,11 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Debug: ensure DOCKER_USERNAME is available
+      # 2) Debug: ensure DOCKER_USERNAME is available (won't fail)
       - name: Debug DOCKER_USERNAME
         run: |
           echo "DOCKER_USERNAME = '${{ secrets.DOCKER_USERNAME }}'"
-          env | grep DOCKER
+          echo "Any DOCKER_* env vars:"
+          env | grep DOCKER || echo "(none)"
 
       # 3) List files so we can confirm build contexts exist
       - name: List workspace files
