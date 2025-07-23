@@ -1,13 +1,22 @@
 #!/bin/bash
+set -euo pipefail
 
-# Stop existing containers
+# Ensure DOCKER_USERNAME is set
+if [ -z "${DOCKER_USERNAME:-}" ]; then
+  echo "ERROR: DOCKER_USERNAME is not set!"
+  exit 1
+fi
+
+echo "Stopping existing containers..."
 docker-compose down
 
-# Pull the latest images
-docker pull $DOCKER_USERNAME/client-app:latest
-docker pull $DOCKER_USERNAME/server-app:latest
+echo "Pulling latest images..."
+docker pull "${DOCKER_USERNAME}/client-app:latest"
+docker pull "${DOCKER_USERNAME}/server-app:latest"
 
-# Start updated containers
+echo "Starting up with new images..."
 docker-compose up -d
-# Wait for the services to be ready
-echo "Waiting for services to start..."
+
+echo "Waiting for services to settle..."
+sleep 10
+echo "Deploy complete."
