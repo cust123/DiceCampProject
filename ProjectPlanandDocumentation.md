@@ -260,6 +260,76 @@ You can reproduce this working setup by following these steps:
 
 ## ✅ Phase 2.2: Infrastructure Provisioning with Terraform Infrastructure Provisioning with Terraform
 
+Phase Goals:
+
+Move the project toward a production-grade, cloud-deployable setup
+
+Use MongoDB Atlas as a managed database service
+
+Use GitHub for source control and CI/CD integration
+
+Provision infrastructure using Terraform (AWS EC2)
+
+✅ Key Accomplishments:
+
+GitHub repo created: https://github.com/cust123/DiceCampProject
+
+MongoDB Atlas cluster created & connected
+
+EC2 provisioned via Terraform with security groups for ports 5000/5001/3020/443
+
+Application successfully containerized and deployed via SSH to EC2 instance
+
+Docker Compose runs server/client/MongoDB using .env for configs
+
+Domain emailspamdetection.com registered via Namecheap
+
+Reverse proxy configured via Nginx
+
+HTTPS enabled with SSL (Let's Encrypt + Certbot)
+
+🐞 Issues Resolved:
+
+Region mismatch with AWS key pair: recreated and imported PEM in us-east-1
+
+GitHub push failures due to large .terraform folder: excluded with .gitignore
+
+Docker container port conflict: resolved by stopping old processes
+
+DNS propagation delay fixed via proper A-record and propagation wait
+
+✅ Phase 3: DNS + HTTPS + Production Testing (Completed)
+
+🎯 Objectives:
+
+Map custom domain to EC2 instance
+
+Set up Nginx as reverse proxy to Flask apps
+
+Secure with HTTPS via Certbot + Let's Encrypt
+
+✅ Work Completed:
+
+EC2 public IP (3.89.219.109) assigned A-record emailspamdetection.com
+
+Nginx installed, configured to reverse proxy:
+
+/ → client app (port 5000)
+
+/api/ → server app (port 5001)
+
+Certbot used to issue SSL certificates
+
+HTTP → HTTPS enforced
+
+Web tested: https://emailspamdetection.com
+
+🐞 Fixes:
+
+Certbot failed for www.emailspamdetection.com — fixed by using only base domain
+
+File download, checksum, MongoDB logging confirmed in browser
+
 - [ ] Define modules and scripts in `/terraform` for:
 
   - VPC + subnets
