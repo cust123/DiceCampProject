@@ -26,15 +26,17 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/amd64 \
+            --push \
             -t ${{ secrets.DOCKER_USERNAME }}/server-app:latest \
-            ./serverSideApp --push
+            ./serverSideApp
 
       - name: Build and Push Client Image
         run: |
           docker buildx build \
             --platform linux/amd64 \
+            --push \
             -t ${{ secrets.DOCKER_USERNAME }}/client-app:latest \
-            ./clientSideApp --push
+            ./clientSideApp
 
       - name: Deploy to EC2 Instance via SSH
         uses: appleboy/ssh-action@master
