@@ -1,5 +1,6 @@
 name: Build, Push and Deploy
-
+# This workflow builds Docker images for both server and client applications,
+# pushes them to Docker Hub, and deploys the application to an EC2 instance via SSH
 on:
   push:
     branches:
