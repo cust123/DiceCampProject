@@ -338,16 +338,43 @@ File download, checksum, MongoDB logging confirmed in browser
 
 - [ ] Verify SSH + port access
 
-### ✅ Phase 3: Monitoring Stack
+### ✅ Phase 4: CI/CD Pipelines and Monitoring Tools
 
-- [ ] Install Grafana + Node Exporter on both EC2s
-- [ ] Expose Grafana at port 3020 publicly
-- [ ] Dashboards:
+Phase 4: Monitoring Stack (Grafana + Node Exporter)
 
-  - System Metrics: CPU, memory, disk, processes
-  - Docker Metrics (via cAdvisor or node_exporter + Prometheus)
+🌐 Tools Used:
 
-### ✅ Phase 4: CI/CD Pipelines
+Node Exporter: For exposing system-level metrics
+
+Grafana: Visualization dashboards
+
+Prometheus (optional): Metrics scraper (future addition)
+
+⚖️ Setup Steps:
+
+Installed Node Exporter on both EC2s
+
+Exposed port 9100
+
+Installed Grafana on client EC2
+
+Added Node Exporter as Prometheus-style datasource
+
+📊 Dashboards Added:
+
+Dashboard ID 1860: Node Exporter Full
+
+Dashboard ID 15172: Docker Container Metrics (cAdvisor optional)
+
+🔓 Ports
+
+Port 3020: Grafana dashboard exposed via Nginx
+
+Port 9100: Node Exporter
+
+📷 Screenshots
+
+(To be added in GitHub README)
 
 - [ ] GitHub Actions Workflows:
 
@@ -362,6 +389,244 @@ File download, checksum, MongoDB logging confirmed in browser
 - [ ] Configure EC2 as GitHub self-hosted runner (optional)
 
 ### ✅ Phase 5: Documentation
+
+⚖️ Goals
+
+Automate Docker image build + push
+
+SSH into EC2 and restart Docker containers
+
+Send Slack notifications
+
+📂 Workflow Structure (.github/workflows/deploy.yml):
+
+On push to main
+
+Checkout repo
+
+Build client + server Docker images
+
+Push to Docker Hub
+
+SSH into EC2:
+
+Pull new code
+
+Rebuild containers
+
+Restart services
+
+Post Slack message with status
+
+🔒 GitHub Secrets Used:
+
+Secret Key
+
+Purpose
+
+EC2_HOST
+
+Public IP of EC2
+
+SSH_PRIVATE_KEY
+
+Keypair for SSH
+
+DOCKER_USERNAME
+
+Docker Hub login
+
+DOCKER_PASSWORD
+
+Docker Hub token
+
+SLACK_WEBHOOK
+
+Slack channel integration
+
+📢 Slack Notification Example:
+
+✅ Client App Deployment Successful – 2025-07-23 16:45 PKT
+
+📝 Final Documentation and Media
+
+📚 Files Updated:
+
+README.md in both client and server repos
+
+Architecture diagrams:
+
+infra-architecture.png
+
+ci-cd-workflow.png
+
+dataflow-logic.png
+
+Screenshots:
+
+Grafana dashboards
+
+MongoDB logs
+
+SSL secured Flask UI
+
+📌 Recommendations & Improvements
+
+Category
+
+Recommendation
+
+Monitoring
+
+Add Prometheus and custom alerts
+
+Secrets Mgmt
+
+Use AWS Secrets Manager instead of raw .env
+
+Registry
+
+Replace Docker Hub with AWS ECR
+
+Testing
+
+Add unit/integration tests using pytest
+
+Observability
+
+Add Loki or ELK for centralized logging
+
+CI Enhancement
+
+Add artifact caching and rollback on failure
+
+Deployment
+
+Use self-hosted GitHub runner or GitHub Deployments
+
+Analytics
+
+Integrate simple logging dashboard for audit trail
+
+🧠 Lessons Learned
+
+Topic
+
+Insight Gained
+
+Docker Networking
+
+Services communicate using container names over default bridge network
+
+SSL with Nginx
+
+Certbot simplifies free HTTPS but must handle renewal and firewall rules
+
+GitHub Actions SSH
+
+Deployment requires key-based auth, secrets management, and idempotency
+
+MongoDB Atlas
+
+Quick cloud DB setup; schema-less but needs careful validation
+
+EC2 Access
+
+Initial SSH and firewall setup is crucial to avoid lockouts
+
+DNS Propagation
+
+DNS changes may take minutes to reflect globally
+
+Flask + UI
+
+Templating with Jinja2 + HTML/CSS is lightweight and effective
+
+Monitoring
+
+Node Exporter + Grafana gives instant system-level visibility
+
+📅 Final Weekly Timeline
+
+Week
+
+Accomplishments
+
+Week 1
+
+Flask App Dev, Dockerization, MongoDB Integration
+
+Week 2
+
+Docker Compose, Local Testing, Client UI, MongoDB validation
+
+Week 3
+
+Terraform Infra, Domain, SSL with Certbot, Reverse Proxy Setup
+
+Week 4
+
+Monitoring (Grafana), Dashboards, Slack Alerts
+
+Week 5
+
+CI/CD via GitHub Actions, Final Docs, Screenshots, Cleanup
+
+📦 Final Submission Summary
+
+Deliverable
+
+Status
+
+Dockerized Flask Apps
+
+✅ Completed
+
+MongoDB Atlas Logging
+
+✅ Completed
+
+Terraform AWS Deployment
+
+✅ Completed
+
+Nginx Reverse Proxy + SSL
+
+✅ Completed
+
+Monitoring Stack
+
+✅ Completed
+
+CI/CD Pipeline (GitHub)
+
+✅ Completed
+
+Slack Notification
+
+✅ Completed
+
+Final Documentation
+
+✅ Completed
+
+This project demonstrates end-to-end DevOps proficiency:
+
+Containerization
+
+Infrastructure automation
+
+Deployment pipelines
+
+Monitoring and observability
+
+Production readiness
+
+"Ship fast, monitor everything, automate always."
+
+Now you’re ready for real-world DevOps roles and challenges.
+
+Project Link: https://github.com/cust123/DiceCampProjectLive App: https://emailspamdetection.com
 
 - [ ] Detailed README.md for both repos
 
