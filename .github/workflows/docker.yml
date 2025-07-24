@@ -64,5 +64,5 @@ jobs:
             chmod +x deploy.sh
             ./deploy.sh
 
-# this is the end of the docker deployment workflow
+# this is the end of the docker deployment workflow using github actions
 # it builds and pushes Docker images for both server and client applications
