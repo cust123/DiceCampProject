@@ -15,7 +15,8 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - clientvol:/clientdata
+      - ./clientSideApp/app/templates:/app/app/templates
+      # - clientvol:/clientdata
     env_file:
       - ./clientSideApp/.env
     depends_on:
