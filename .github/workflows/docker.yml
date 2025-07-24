@@ -37,7 +37,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/client-app:latest
 
       # 5) Deploy to EC2 using SSH
-       - name: Deploy to EC2 via SSH
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
