@@ -37,18 +37,19 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/client-app:latest
 
       # 5) Deploy to EC2 using SSH
-      - name: Deploy to EC2 via SSH
+            - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          envs: DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
             echo "✅ Logged in to EC2"
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             echo "DOCKER_USERNAME in EC2 = $DOCKER_USERNAME"
             cd /home/ubuntu/DiceCampProject
+            git reset --hard HEAD
             git pull origin main
             chmod +x deploy.sh
             ./deploy.sh
