@@ -51,7 +51,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/client-app:latest
 
-      # 7) Deploy to EC2 via SSH
+      # 7) Deploy to EC2 via SSH methods
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
         with:
