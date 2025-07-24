@@ -1,14 +1,220 @@
 <!DOCTYPE html>
-<html>
-<head><title>Client UI</title></head>
-<body>
-    <h2>Client File Fetch UI</h2>
-    <form action="/fetch" method="post">
-        <button type="submit">Fetch File from Server</button>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Client UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icon -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      form {
+        background-color: #1f1f1f;
+        padding: 32px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      button {
+        background: linear-gradient(135deg, #03dac6, #00bfa5);
+        border: none;
+        color: #000000;
+        padding: 14px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+        box-shadow: 0 4px 15px rgba(3, 218, 198, 0.3);
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: relative;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #00c4b4, #009e8e);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(3, 218, 198, 0.5);
+      }
+
+      .loading-spinner {
+        border: 3px solid #03dac6;
+        border-top: 3px solid #1f1f1f;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+        display: none;
+      }
+
+      .loading .loading-spinner {
+        display: inline-block;
+      }
+
+      .loading .btn-text {
+        visibility: hidden;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      p {
+        margin-top: 20px;
+        font-size: 16px;
+        word-wrap: break-word;
+      }
+
+      .status,
+      .checksum {
+        margin-top: 18px;
+      }
+
+      .status {
+        color: #8be9fd;
+      }
+
+      .checksum {
+        color: #ffb86c;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #1e1e1e;
+        color: #fff;
+        padding: 14px 24px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        font-size: 15px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        z-index: 999;
+      }
+
+      .toast.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .toast.success {
+        background-color: #00c853;
+      }
+
+      .toast.error {
+        background-color: #d50000;
+      }
+
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 24px;
+        }
+
+        form {
+          padding: 24px;
+        }
+
+        button {
+          padding: 12px 20px;
+          font-size: 15px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        h2 {
+          font-size: 32px;
+        }
+
+        form {
+          padding: 48px;
+          max-width: 480px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>File Fetch Interface</h2>
+    <form action="/fetch" method="post" onsubmit="showLoading()">
+      <button type="submit" id="fetchBtn">
+        <span class="btn-text"
+          ><i class="fas fa-download"></i> Fetch File from Server</span
+        >
+        <span class="loading-spinner"></span>
+      </button>
+
+      {% if status %}
+      <p class="status">Status: {{ status }}</p>
+      <p class="checksum">Checksum: {{ checksum }}</p>
+      {% endif %}
     </form>
-    {% if status %}
-        <p>Status: {{ status }}</p>
-        <p>Checksum: {{ checksum }}</p>
-    {% endif %}
-</body>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+      function showLoading() {
+        const btn = document.getElementById("fetchBtn");
+        btn.classList.add("loading");
+      }
+
+      window.onload = function () {
+        const status = "{{ status }}".toLowerCase();
+        if (status) {
+          const toast = document.getElementById("toast");
+          toast.classList.add("show");
+          toast.classList.add(status.includes("success") ? "success" : "error");
+          toast.textContent =
+            "Status: " + status.charAt(0).toUpperCase() + status.slice(1);
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 4000);
+        }
+      };
+    </script>
+  </body>
 </html>
