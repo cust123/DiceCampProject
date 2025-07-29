@@ -603,3 +603,4 @@ This project demonstrates end-to-end **DevOps proficiency** in:
 ---
 
 _All screenshots and diagrams are actual captures from my implementation (July 2025)._
+Note: the deployment is down to cut down AWS costs.
